@@ -57,6 +57,19 @@ export function Home() {
     
   }
 
+  function handleEditTask(taskId: number, taskNewTitle: string) {
+    const updatedTasks = tasks.map(task => ({ ...task }));
+    
+    const foundTask = updatedTasks.find(item => item.id === taskId);
+    
+    if (!foundTask)
+      return;
+
+    foundTask.title = taskNewTitle;
+
+    setTasks(updatedTasks);
+  }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -66,7 +79,8 @@ export function Home() {
       <TasksList 
         tasks={tasks} 
         toggleTaskDone={handleToggleTaskDone}
-        removeTask={handleRemoveTask} 
+        removeTask={handleRemoveTask}
+        editTask={handleEditTask}
       />
     </View>
   )
